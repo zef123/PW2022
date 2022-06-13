@@ -1,0 +1,3 @@
+# UAS WEB PROGRAMMING KELAS F
+1. Zefanya Maramis (20021106180)
+1. Leadericko Wisnu (20021106094)
