@@ -1,11 +1,11 @@
 <?php
 
+include './php/config-cart.php';
+
 session_start();
 
-require_once ("php/CreateDb.php");
-require_once ("php/component.php");
+require_once ('./php/component.php');
 
-$db = new CreateDb("Productdb", "Producttb");
 
 if (isset($_POST['remove'])){
   if ($_GET['action'] == 'remove'){
@@ -54,7 +54,7 @@ if (isset($_POST['remove'])){
                     if (isset($_SESSION['cart'])){
                         $product_id = array_column($_SESSION['cart'], 'product_id');
 
-                        $result = $db->getData();
+                        $result = mysqli_query($conn, "select * from producttb");
                         while ($row = mysqli_fetch_assoc($result)){
                             foreach ($product_id as $id){
                                 if ($row['id'] == $id){
