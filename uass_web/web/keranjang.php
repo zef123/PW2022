@@ -1,13 +1,10 @@
 <?php
 
+include './php/config-cart.php';
+
 session_start();
 
-require_once ('php/CreateDb.php');
 require_once ('./php/component.php');
-
-
-// create instance of Createdb class
-$database = new CreateDb("Productdb", "Producttb");
 
 if (isset($_POST['add'])){
     /// print_r($_POST['product_id']);
@@ -59,10 +56,11 @@ if (isset($_POST['add'])){
     
 </head>
 
+<body>
 <div class="container">
         <div class="row text-center py-5">
             <?php
-                $result = $database->getData();
+                $result = mysqli_query($conn, "select * from producttb");
                 while ($row = mysqli_fetch_assoc($result)){
                     component($row['product_name'], $row['product_price'], $row['product_image'], $row['id']);
                 }
