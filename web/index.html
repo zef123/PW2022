@@ -1,63 +1,304 @@
-<?php 
- 
-include 'config.php';
- 
-error_reporting(0);
- 
-session_start();
- 
-if (isset($_SESSION['username'])) {
-    header("Location: index.html");
-}
- 
-if (isset($_POST['submit'])) {
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
- 
-    $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
-    $result = mysqli_query($conn, $sql);
-    if ($result->num_rows > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['username'] = $row['username'];
-        header("Location: index.html");
-    } else {
-        echo "<script>alert('Email atau password Anda salah. Silahkan coba lagi!')</script>";
-    }
-}
- 
-?>
- 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
- 
-    <link rel="stylesheet" type="text/css" href="style.css">
- 
-    <title>UAS WEB</title>
+    <title>Yannie Handicraft</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
-    <div class="alert alert-warning" role="alert">
-        <?php echo $_SESSION['error']?>
+    
+<!-- header  -->
+
+<header class="header">
+
+    <a href="#" class="logo">
+        <img src="images/logo.png" alt="">
+    </a>
+
+    <nav class="navbar">
+        <a href="logout.php">logout</a> 
+        <a href="#home">home</a>
+        <a href="#about">about</a>
+        <a href="#products">products</a>
+        <a href="#accomplishment">accomplishment</a>
+        <a href="#contact">contact</a>
+        <a href="#blogs">learn more about us</a>
+        <a href="#vidio">identitas kelompok</a>
+    </nav>
+
+    <div class="icons">
+        <div class="fas fa-search" id="search-btn"></div>
+        <div class="fas fa-shopping-cart" id="cart-btn"></div>
     </div>
- 
-    <div class="container">
-        <form action="" method="POST" class="login-email">
-            <p class="login-text" style="font-size: 2rem; font-weight: 800;">Login</p>
-            <div class="input-group">
-                <input type="email" placeholder="Email" name="email" value="<?php echo $email; ?>" required>
-            </div>
-            <div class="input-group">
-                <input type="password" placeholder="Password" name="password" value="<?php echo $_POST['password']; ?>" required>
-            </div>
-            <div class="input-group">
-                <button name="submit" class="btn">Login</button>
-            </div>
-            <p class="login-register-text">Anda belum punya akun? <a href="register.php">Register</a></p>
+
+    <div class="search-form">
+        <form action="http://www.google.com/search" method="get" class="form-search">
+            <input type="text" name="q" placeholder="Search">
         </form>
     </div>
+
+    <div class="cart-items-container">
+        <div id="cart" ></div>
+        <a href="keranjang.php" class="btn">Pergi ke keranjang</a>
+    </div>
+
+</header>
+
+
+<!-- home  -->
+
+<section class="home" id="home">
+
+    <div class="content">
+        <h3>Yannie Handicraft</h3>
+        <p>Sebuah usaha kerajinan yang menggunakan sisik ikan untuk bahan utama membuat souvenir dari Sulawesi Utara.</p>
+        <a href="images/Sulawesi-Utara-Yannie-Handicraft-Kerajinan.jpg" class="btn">get yours now via QRIS</a>
+    </div>
+
+</section>
+
+
+<!-- about  -->
+
+<section class="about" id="about">
+
+    <h1 class="heading"> <span>about</span> us </h1>
+
+    <div class="row">
+
+        <div class="image">
+            <img src="images/about-img.jpeg" alt="">
+        </div>
+
+        <div class="content">
+            <h3>what makes our product special?</h3>
+            <p>Yannie Handicraft merupakan usaha pribadi yang terbentuk sejak 2012. Produk kami berupa aksesoris yang menargetkan konsumen wanita sebagai target utama penjualan. Usaha kami juga awalnya hanya dimulai dari hobi pemilik yang mencoba untuk membuat aksesoris sederhana dari sisik ikan yang diambil dari tukang ikan di pasar tradisional. Seiring waktu mulai dijual dan mulai dimasukkan di toko-toko souvenir.</p>
+            <p>Tak berselang lama usaha kami mulai dikenal dan kami mulai dibina oleh semua dinas yang ada di kota maupun provinsi serta diikutsertakan di pameran tingkat lokal maupun nasional. Produk kami juga pernah dibawa untuk dipamerkan di luar negeri antara lain; Jepang, Italia dan Rusia. Produk kami pula menjadi ciri khas Provinsi Sulawesi Utara sebagai cindera mata turis-turis karena perairan Sulawesi Utara kaya akan keanekaragaman ikan.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- product -->
+
+<section class="products" id="products">
+
+    <h1 class="heading"> our <span>products</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <div class="icons">
+                <a href="images/1.jpg" class="fas fa-eye"></a>
+            </div>
+            <div class="image">
+                <img src="" alt="" id = "product_img0">
+            </div>
+
+            <div class="content">
+                <h3 id = "product_name0"></h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="price" id = "product_price0"></div>
+            </div>
+        </div>
+
+        
+        <div class="box">
+            <div class="icons">
+                <a href="images/2.jpg" class="fas fa-eye"></a>
+            </div>
+            <div class="image">
+                <img src="" alt="" id = "product_img1">
+            </div>
+
+            <div class="content">
+                <h3 id = "product_name1"></h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="price" id = "product_price1"></div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="icons">
+                <a href="images/3.jpg" class="fas fa-eye"></a>
+            </div>
+            <div class="image">
+                <img src="" alt="" id = "product_img2">
+            </div>
+
+            <div class="content">
+                <h3 id = "product_name2"></h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="price" id = "product_price2"></div>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="icons">
+                <a href="images/4.jpg" class="fas fa-eye"></a>
+            </div>
+            <div class="image">
+                <img src="" alt="" id = "product_img3">
+            </div>
+
+            <div class="content">
+                <h3 id = product_name3></h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="price" id = "product_price3"></div>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- accomplishment -->
+
+<section class="accomplishment" id="accomplishment">
+
+    <h1 class="heading"> OUR <span>ACCOMPLISHMENT</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <img src="images/quote-img.png" alt="" class="quote">
+            <p>THE BEST UKM WOW Dalam Rangka Gebyar UKM oleh Kementerian Koperasi dan UMKM. Manado, Sulawesi Utara (1 November 2016)</p>
+            <h3>2016</h3>
+        </div>
+
+        <div class="box">
+            <img src="images/quote-img.png" alt="" class="quote">
+            <p>(1.) Juara 2 Enterpreneur Award Manado High Sreet Market II yang diselenggarakan oleh Indonesia Marketing association (21-25 Maret 2018)</p>
+            <p>(2.) Juara 2 CREATIVEPRENEUR dalam Festival Ekonomi Sulawesi Utara yang diselenggarakan oleh BI (22-24 November 2018)</p>
+            <h3>2018</h3>
+        </div>
+        
+        <div class="box">
+            <img src="images/quote-img.png" alt="" class="quote">
+            <p>(1.) Mewakili BRI wilayah IV dalam ajang BRICRAFT di Jakarta (22-24 Februari 2019)</p>
+            <p>(2.) Juara 1 Nasional kategori usaha Mikro dalam rangka UMKM appreciation award yang diselenggarakan oleh JAMKRINDO di Jakarta (29 November 2019)</p>   
+            <h3>2019</h3>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- contact  -->
+
+<section class="contact" id="contact">
+
+    <h1 class="heading"> <span>contact</span> us </h1>
+
+    <div class="row">
+        <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.511089633619!2d124.83042955043712!3d1.4667261989250782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32877567a270fa85%3A0xa8e491081b8d3f7d!2sYannie%20Handicraft%20-%20Tas%20Ecoprint%20Manado!5e0!3m2!1sen!2sid!4v1649651596386!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
+        <form action="">
+            <h3>get in touch</h3>
+            <a href="https://wa.me/6281340874675" class="btn">contact now</a>
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- blogs  -->
+
+<section class="blogs" id="blogs">
+
+    <h1 class="heading"> LEARN MORE <span> ABOUT US</span> </h1>
+
+    <div class="box-container">
+
+        <div class="box">
+            <div class="video">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/h65ftyjsoyc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>            </div>
+            <div class="content">
+                <span>by admin / 13 Aug 2020</span>
+                <p>KOTA MANADO | Kerajinan Unik dari Sisik Ikan | Yannie Handicraft</p>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="video">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/nm07qpd4Ku0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>            </div>
+            <div class="content">
+                <span>by admin / 12 Mar 2021</span>
+                <p>Menyulap Limbah Ikan Jadi Berkah - Yannie Handycraft Local Heroes Manado</p>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="video">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/TUra_RdmXTk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>            </div>
+            <div class="content">
+                <span>by admin / 7 Dec 2021</span>
+                <p>DSP LIKUPANG | KATEGORI KRIYA | YANNIE HANDICRAFT #TumbuhBersamaSahabat</p>
+            </div>
+        </div>        
+
+    </div>
+
+</section>
+
+<!-- kelompok  -->
+
+<section class="vidio" id="vidio">
+
+    <div class="row">
+        <form action="">
+            <a href="kelompok.html" class="btn">IDENTITAS KELOMPOK</a>
+        </form>
+    </div>
+
+</section>
+
+<!-- footer  -->
+
+<section class="footer">
+
+    <div class="share">
+        <a href="https://www.facebook.com/ecoprintyanniehandicraft/" class="fab fa-facebook-f"></a>
+        <a href="https://www.instagram.com/yanniehandicraft/?hl=en" class="fab fa-instagram"></a>
+        <a href="https://wa.me/6281340874675" class="fab fa-whatsapp"></a>
+        <a href="https://isef.co.id/wp-content/uploads/2021/10/FormatFactory-PDF-Joiner-E-CatalogueE-Catalogue-yannie-cahyani.pdf" class="fas fa-file-pdf"></a>  
+    </div>
+
+</section>
+
+
+<!-- JS  -->
+<script src="js/script.js"></script>
+
 </body>
 </html>
